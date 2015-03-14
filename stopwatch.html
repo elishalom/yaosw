@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/darkly/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container text-center">
+    <img src="logo.jpg" width="200">
+
+    <div class="text-center">
+        <h1 id="elapsed">00:00</h1>
+    </div>
+    <span class="glyphicon glyphicon-stop" onclick="stop()" style="font-size: xx-large"></span>
+    <span class="glyphicon glyphicon-play" onclick="restart()" style="font-size: xx-large"></span>
+</div>
+</div>
+
+</body>
+
+<script>
+    var start = null;
+    var timer = null;
+
+    function update_elapsed() {
+        if(start == null){
+            return;
+        }
+        var elapsed = new Date().getTime() / 1000 - start;
+        document.getElementById('elapsed').innerText = ('0' + Math.round(elapsed / 60)).slice(-2) + ':' + ('0' + Math.round(elapsed % 60)).slice(-2);
+    }
+
+    function restart() {
+        document.getElementById('elapsed').innerText = '00:00';
+        window.start = new Date().getTime() / 1000;
+        clearInterval(timer);
+        timer = setInterval(update_elapsed, 100);
+    }
+
+    function stop() {
+        start = null;
+        clearInterval(timer);
+        document.getElementById('elapsed').innerText = '00:00';
+    }
+
+</script>
+</html>
